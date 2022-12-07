@@ -7,6 +7,9 @@ gem 'rails',   '6.1.4.6'
 gem 'sqlite3', '~> 1.4'
 gem 'puma', '~> 5.0'
 gem 'bootstrap-sass'
+gem 'simple_form'
+gem 'redcarpet'
+gem 'devise'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
@@ -20,8 +23,10 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -32,6 +37,8 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
