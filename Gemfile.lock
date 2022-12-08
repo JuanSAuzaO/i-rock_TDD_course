@@ -245,6 +245,8 @@ GEM
       sprockets-rails
       tilt
     semantic_range (3.0.0)
+    shoulda-matchers (5.2.0)
+      activesupport (>= 5.2.0)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -311,6 +313,7 @@ DEPENDENCIES
   redcarpet
   rspec-rails
   sass-rails (>= 6)
+  shoulda-matchers
   simple_form
   spring
   spring-commands-cucumber
