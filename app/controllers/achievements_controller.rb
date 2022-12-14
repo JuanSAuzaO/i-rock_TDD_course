@@ -11,7 +11,7 @@ class AchievementsController < ApplicationController
   end
   
   def create
-    @achievement = Achievement.new(achievement_params)
+    @achievement = Achievement.new(achievement_params.merge( user: current_user))
     if @achievement.save
       UserMailer.achievement_created(current_user.email, @achievement.id).deliver_now
       redirect_to achievement_url(@achievement), notice: 'Achievement has been created'

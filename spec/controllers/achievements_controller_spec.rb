@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe AchievementsController do
+  let(:user) { FactoryBot.create(:user) }
   
   shared_examples "public access to achievements" do
     describe "GET index" do
@@ -11,15 +12,15 @@ describe AchievementsController do
       end
       
       it "assigns only public achievements to template" do
-        public_achievement = FactoryBot.create(:public_achievement)
-        private_achievement = FactoryBot.create(:private_achievement)
+        public_achievement = FactoryBot.create(:public_achievement, user: user)
+        private_achievement = FactoryBot.create(:private_achievement, user: user)
         get :index
         expect(assigns(:achievements)).to match_array([public_achievement])
       end
     end
     
     describe "GET show" do
-      let(:achievement) { FactoryBot.create(:public_achievement)  }
+      let(:achievement) { FactoryBot.create(:public_achievement, user: user)  }
        
       it "renders :show template" do
         get :show, params: {id: achievement}
@@ -53,21 +54,21 @@ describe AchievementsController do
     
     describe "GET edit" do
       it "redirects to login page" do
-        get :edit, params: { id: FactoryBot.create(:public_achievement) }
+        get :edit, params: { id: FactoryBot.create(:public_achievement, user: user) }
         expect(response).to redirect_to(new_user_session_url)
       end
     end
     
     describe "PUT update" do
       it "redirects to login page" do
-        put :update, params: { id: FactoryBot.create(:public_achievement), achievement: FactoryBot.attributes_for(:public_achievement, title: "New Title")  }
+        put :update, params: { id: FactoryBot.create(:public_achievement, user: user), achievement: FactoryBot.attributes_for(:public_achievement, title: "New Title")  }
         expect(response).to redirect_to(new_user_session_url)
       end
     end
     
     describe "DELETE destroy" do
       it "redirects to login page" do
-        delete :destroy, params: { id: FactoryBot.create(:public_achievement) }
+        delete :destroy, params: { id: FactoryBot.create(:public_achievement, user: user) }
         expect(response).to redirect_to(new_user_session_url)
       end
     end
@@ -95,12 +96,12 @@ end
     end
   end
     
-    describe "POST create" do
+    describe "POST create", :vcr do
     
     context "valid data" do
       let(:valid_data) { FactoryBot.attributes_for(:public_achievement) }
       it "redirects to achievements#show" do
-       post :create, params: { achievement: valid_data, user: user }
+       post :create, params: { achievement: valid_data.merge }
        expect(response).to redirect_to(achievement_path(assigns[:achievement]))
       end
       
@@ -112,7 +113,7 @@ end
     end
     
     context "invalid data" do
-      let(:invalid_data) { FactoryBot.attributes_for(:public_achievement, title: '', user: user) }
+      let(:invalid_data) { FactoryBot.attributes_for(:public_achievement, title: '') }
       
       it "renders :new template" do
         post :create, params: { achievement: invalid_data }
