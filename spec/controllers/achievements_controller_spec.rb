@@ -101,7 +101,7 @@ end
     context "valid data" do
       let(:valid_data) { FactoryBot.attributes_for(:public_achievement) }
       it "redirects to achievements#show" do
-       post :create, params: { achievement: valid_data.merge }
+       post :create, params: { achievement: valid_data }
        expect(response).to redirect_to(achievement_path(assigns[:achievement]))
       end
       

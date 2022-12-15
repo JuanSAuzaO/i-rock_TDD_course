@@ -9,8 +9,6 @@ RSpec.describe 'Achievements API', type: :request do
     headers = { 'Content-Type' => 'application/vnd.api+json' }
     get '/api/achievements', params: { data: nil }, headers: headers
 
-    puts request.headers["Content-Type"]
-
     expect(response.status).to eq(200)
     json = JSON.parse(response.body)
 

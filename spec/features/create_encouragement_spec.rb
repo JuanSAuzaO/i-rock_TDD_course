@@ -5,7 +5,8 @@ require_relative '../support/encouragement_form'
 
 feature 'create encouragement' do
 let(:user) { FactoryBot.create(:user) }
-let(:achievement) { FactoryBot.create(:achievement, user: user) }
+let(:user2) { FactoryBot.create(:user) }
+let(:achievement) { FactoryBot.create(:achievement, user: user2) }
 
 let(:login_form) { LoginForm.new }
 let(:achievement_page) { AchievementPage.new }
