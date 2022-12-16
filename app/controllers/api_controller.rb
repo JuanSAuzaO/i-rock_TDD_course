@@ -1,15 +1,15 @@
 class ApiController < ActionController::Base
 
-    protect_from_forgery with: :null_session
+  protect_from_forgery with: :null_session
 
-    before_action :validate_header
+  before_action :validate_header
 
-    private
+  private
 
-    def validate_header
-        if request.headers["Content-Type"] != 'application/vnd.api+json'
-          render json: {}, status: 400
-          return
-        end
-    end
+  def validate_header
+      if request.headers["Content-Type"] != 'application/vnd.api+json'
+        render json: {}, status: 400
+        return
+      end
+  end
 end
